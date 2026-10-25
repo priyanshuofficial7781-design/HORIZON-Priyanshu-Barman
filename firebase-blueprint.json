@@ -1,0 +1,85 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with study metrics and preferences",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "fullName": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 256 },
+        "targetRole": { "type": "string", "maxLength": 128 },
+        "studyHoursTotal": { "type": "number" },
+        "dsaSolved": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "fullName"]
+    },
+    "AppState": {
+      "title": "AppState",
+      "description": "Full application state snapshot synchronized across devices",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "profile": { "type": "object" },
+        "tasks": { "type": "array" },
+        "focusSessions": { "type": "array" },
+        "youtubeLectures": { "type": "array" },
+        "milestones": { "type": "array" },
+        "cyberModules": { "type": "array" },
+        "projects": { "type": "array" },
+        "placementTracker": { "type": "object" },
+        "lastSyncedAt": { "type": "string" },
+        "clientVersion": { "type": "string" }
+      },
+      "required": ["userId", "lastSyncedAt"]
+    },
+    "FocusSession": {
+      "title": "FocusSession",
+      "description": "Deep work focus session log",
+      "type": "object",
+      "properties": {
+        "sessionId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "goal": { "type": "string", "maxLength": 200 },
+        "durationMinutes": { "type": "number" },
+        "completed": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["sessionId", "userId", "durationMinutes"]
+    },
+    "CustomLecture": {
+      "title": "CustomLecture",
+      "description": "Saved YouTube lecture and notes",
+      "type": "object",
+      "properties": {
+        "lectureId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 200 },
+        "videoUrl": { "type": "string", "maxLength": 500 },
+        "notes": { "type": "string", "maxLength": 5000 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["lectureId", "userId", "videoUrl"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Private user profile and statistics"
+    },
+    "/users/{userId}/app_state/{stateId}": {
+      "schema": "AppState",
+      "description": "Complete real-time state synchronization across user devices"
+    },
+    "/users/{userId}/focus_sessions/{sessionId}": {
+      "schema": "FocusSession",
+      "description": "User focus sessions"
+    },
+    "/users/{userId}/custom_lectures/{lectureId}": {
+      "schema": "CustomLecture",
+      "description": "User saved YouTube lectures and notes"
+    }
+  }
+}

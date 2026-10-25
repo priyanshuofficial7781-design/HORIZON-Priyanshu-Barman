@@ -1,0 +1,6 @@
+{
+  "name": "HORIZON — Premium Futuristic BCA Career Planner",
+  "description": "A futuristic command-center career planner for BCA students learning C++, DSA, Java, Cybersecurity, Python, AI/ML, aptitude, and placement preparation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
